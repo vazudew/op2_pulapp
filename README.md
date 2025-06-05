@@ -163,6 +163,10 @@ ToDo
 2. You can also open other Browser instance for the same link, and see the web page is load balanced between container instances. Differentiator is _Hostname_ displayed on Web page.
 3. Also one can see that configured value is displayed on the web page.
 
+![Final Result](./resources/4.result-final.jpg) <br />
+* website is up and active (via loadbalancer DNS)
+* loadbalancing of traffic between instances (hostname)
+* configured value is displayed 
 
 ## <a name="future"></a> Future Scope for Extensions
 
