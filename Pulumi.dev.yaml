@@ -1,0 +1,4 @@
+config:
+  aws:region: eu-central-1
+  exp:vazu: pulumi
+  plapp:config_val: pulumi_rocks!

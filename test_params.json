@@ -1,0 +1,4 @@
+{"config_key": "config_val", 
+"config_val": "pulumi_rocks!", 
+"image_digest": "549665574054.dkr.ecr.eu-central-1.amazonaws.com/op2-plapp-fa4e1ab@sha256:df6f2ebc7ac8a2845bca56d600feb948653e095eb5f9608726f52bdcae5bb23e", 
+"op2_plapp_url": "aecd42b0018984706be3ec6a0e6abc3b-1952968369.eu-central-1.elb.amazonaws.com"}
