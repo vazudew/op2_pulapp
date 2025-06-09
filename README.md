@@ -56,7 +56,21 @@ Following topics are considered during solution building.
 - _Makefile_ with handy repeatitive commands to run 
   
 ## <a name="arch"></a> Architecture
-ToDo
+
+Here is the standard architecture of EKS on AWS.
+
+* __VPC__ hosting _public_ and _private_ Subnets. All internet facing entity such as _ELB_ will be hosted in _public_ subnet. _private_ subnet hosts secured items such as _EKS_ nodes, _pods_ or any Database objects
+
+* We use _managed_ __EKS__ service, where in __AWS__ provisions its own VPC with __EKS__ _Control Plane_ for operating, scheduling, maintaining, fixing all _K8S_ objects
+
+* All _k8s_ objects which constitutes application logic , in this case (Pods, Services) are hosted in _private_ VPC subnet.
+
+* _User_ can access _ELB_ DNS Hostname as browsable link to naviagate to the application. Currently the encryption at transit is not enabled, hence web traffic is HTTP.
+
+![Final Architecture ](./resources/5.eks_app_arch.png) <br />
+
+Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/best-practices/subnets.html)
+
 
 ## <a name="task"></a> Tasks
 
@@ -74,11 +88,11 @@ ToDo
 
 ### <a name="script"></a> Script File Structure <br />
 - Folder __app__ hosts web application files such as _Dockerfile_ and *create_html.sh* to prepare start page with _hostname_, _environment_ variable and _time_
-- __main.py__ contains main program for container app image management (__ImageManager.py__), deployment on _EKS_ cluster (__K8SManager.py__) and exporting _Pulumi_ outputs
+- __main.py__ contains main program for container app image management (__image_manager.py__), deployment on _EKS_ cluster (__k8s_manager.py__) and exporting _Pulumi_ outputs
 - *Pulumi**._yaml_ holds all configuration files for _Pulumi_ operations
 - _requirements.txt_ contains all the necessary _Python_ and _Pulumi_ modules for operations
-- **AppTester.py** contains basic system testing test cases (checks success criteria)
-- File _test_params.json_ contains testable parameters required for **AppTester.py**
+- **app_tester.py** contains basic system testing test cases (checks success criteria)
+- File _test_params.json_ contains testable parameters required for **app_tester.py**
 - _Makefile_ contains shortened commands for running repititive commands 
 - standard _GIT_ configuration files 
 - Folder __resources__ may contain additional files for project such as images, documentations etc.
@@ -96,27 +110,28 @@ ToDo
     ```bash
     $ python3 -m venv venv
     $ source venv/bin/activate
-    $ (venv) pip install -r requirements.txt
+    (venv) $ pip install -r requirements.txt
     ```
 3. supply _AWS_ credentials with Environment variables for the _Pulumi_ to deploy resources on _AWS_ Cloud.
    The credentials allow programmatic access and to create them, refer [HERE](https://docs.aws.amazon.com/workspaces-web/latest/adminguide/getting-started-iam-user-access-keys.html)
     ```bash
-    $ (venv) pulumi config set config_val pulumi_rocks!
-    $ (venv) pulumi config #check the configured key and value
-    KEY          VALUE
-    ...
-    config_val   pulumi_rocks!
-    ...
+    (venv) $ export AWS_ACCESS_KEY_ID=A***************
+    (venv) $ export AWS_SECRET_ACCESS_KEY=2V****************************************
+    (venv) $ aws sts get-caller-identity  # ensure right identity is used
     ```
+
 4. set a configurable value for the project, that will be passed onto container via Environment variable
     ```bash
-    $ export AWS_ACCESS_KEY_ID=A***************
-    $ export AWS_SECRET_ACCESS_KEY=2V****************************************
-    $ aws sts get-caller-identity  # ensure right identity is used
+    (venv) $ pulumi config set config_val pulumi_rocks!
+    (venv) $ pulumi config #check the configured key and value
+    KEY          VALUE
+    ...
+    config_val   pulumi_rocks! # the configured value is assigned
+    ...
     ```
 5. run `pulumi up` to preview and deploy changes:
     ```bash
-    $ (venv) pulumi up
+    (venv) $ pulumi up
     Previewing update (dev):
     ...
 
@@ -129,10 +144,9 @@ ToDo
 6. Fetch the _op2_plapp_url_ output exported from the script. Open a Browser and navigate to this _URL_. Please ignore the security warning issued by the Browser for the link, as it only accepts unsecure HTTP traffic.
 
 7. you can test the success criteria, by executing sample Test Script. 
-   Please update __test_params.json__ file with appropriate values (_Pulumi_ does not stringifying **Output** Parameters)
 
    ```bash
-    $ python AppTester.py 
+    $ python app_tester.py 
     CONFIGURED_VALUE: pulumi_rocks!
     URL: aecd42b0018984706be3ec6a0e6abc3b-1952968369.eu-central-1.elb.amazonaws.com
     configured value is displayed, PASS!
@@ -153,9 +167,9 @@ ToDo
 
 8. cleaning up
    ```bash
-    $ (venv) pulumi destroy  # tears down entire resource stack
-    $ (venv) pulumi stack rm # Note: deletes all deployment history from the Pulumi console
-    $ (venv) deactivate #python environment gets deactivated
+    (venv) $ pulumi destroy  # tears down entire resource stack
+    (venv) $  pulumi stack rm # Note: deletes all deployment history from the Pulumi console
+    (venv) $  deactivate #python environment gets deactivated
     ```
 
 ## <a name="res"></a> Results
@@ -180,6 +194,28 @@ This Project can be extended further with following features :
 
 
 ## <a name="eval"></a>  Pulumi Evaluation
-ToDo
+
+| Sl. No | Feature        | Remarks                  | Evaluation              |
+| ------------- | ------------- | ----------------------- | ----------------------- |
+1| Ease of use   | 1. CSP-LANG-SERVICE styled templates, with boiler plate code  <br> 2. Terraform like Operations <br> 3. Dashboard with Pulumi Cloud| USP of Pulumi `:bowtie:` |
+2| Intelligence | 1. Support for troubleshooting with [Pulumi Co-Piolt](https://www.pulumi.com/product/copilot/) <br> 2. Language and Usecase specific Code generation with [Pulumi AI](https://www.pulumi.com/ai) | USP of Pulumi `:bowtie:` |
+3| Documentation | 1.Multi language specific modules and examples <br> 2. CSP and Service specific providers and support  | USP of Pulumi `:bowtie:`  |
+4| Examples | 1. CSP-LANG-SERVICE specific examples exist [Here](https://github.com/pulumi/examples/tree/master) <br> 2. Public Repository of modules and examples | a. Example organization could have been better `:neutral_face:` <br> b. Not many use cases for all languages are present  `:neutral_face:`|
+5| Latency | It may take time to load CSP-LANG-SERVICE styled templates and initializing <br>  | It may need performance optimization `:innocent:`|
+
 ## <a name="useful"></a> Useful Links
-ToDo
+
+For the project, following digital materials are very resourceful and gives you better orientation with Pulumi.
+
+| **Sl. No.** | **Link** | **Remarks** |
+----------|--------------|--------------
+1| [PulumiTV](https://www.youtube.com/@PulumiTV/playlists)| Pulumi Youtube Video Official Playlist|
+2 |[Official Docs](https://www.pulumi.com/docs/iac/)| Pulumi official documentation accross Languages/Providers|
+3|[A Sample Workshop](https://www.youtube.com/watch?v=9pX2cr9o6_k&t=5899s) | Workshop by Anmaol Sachdeva, highlighting the operations |
+4|[Pulumi-AWS](https://www.pulumi.com/registry/packages/aws/api-docs/), [Pulumi-Docker](https://www.pulumi.com/registry/packages/docker/api-docs/), [Pulumi-K8s](https://www.pulumi.com/registry/packages/kubernetes/)| Pulumi technology specific references |
+5|[Pulumi-Python](https://www.pulumi.com/docs/iac/languages-sdks/python/)| All Pulumi Python documentation|
+6 |[Pulumi-Examples-Github](https://github.com/pulumi/examples)| Various use cases and examples for Pulumi automation|
+7 |[Pulumi Container Registry](https://github.com/pulumi/pulumi-docker/tree/master/examples/aws-container-registry/py)| Code reference to work with Pulumi Container images|
+8 |[Pulumi Configurations ](https://github.com/pulumi/examples/tree/master/aws-apigateway-py-routes)| Code reference to work with Pulumi Configuration variables |
+9 |[Component Resource Example](https://github.com/pulumi/examples/blob/master/classic-azure-py-webserver-component/webserver.py)| Definition and working example for Pulumi [ComponentResources](https://www.pulumi.com/docs/iac/concepts/resources/components/)|
+10 |[Pulumi with EKS](https://www.pulumi.com/blog/easily-create-and-manage-aws-eks-kubernetes-clusters-with-pulumi/)| Sample K8s provider on EKS example|
