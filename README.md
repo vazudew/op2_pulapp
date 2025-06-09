@@ -198,10 +198,10 @@ This Project can be extended further with following features :
 | Sl. No | Feature        | Remarks                  | Evaluation              |
 | ------------- | ------------- | ----------------------- | ----------------------- |
 1| Ease of use   | 1. CSP-LANG-SERVICE styled templates, with boiler plate code  <br> 2. Terraform like Operations <br> 3. Dashboard with Pulumi Cloud| USP of Pulumi :bowtie: |
-2| Intelligence | 1. Support for troubleshooting with [Pulumi Co-Piolt](https://www.pulumi.com/product/copilot/) <br> 2. Language and Usecase specific Code generation with [Pulumi AI](https://www.pulumi.com/ai) | USP of Pulumi `:bowtie:` |
-3| Documentation | 1.Multi language specific modules and examples <br> 2. CSP and Service specific providers and support  | USP of Pulumi `:bowtie:`  |
-4| Examples | 1. CSP-LANG-SERVICE specific examples exist [Here](https://github.com/pulumi/examples/tree/master) <br> 2. Public Repository of modules and examples | a. Example organization could have been better `:neutral_face:` <br> b. Not many use cases for all languages are present  `:neutral_face:`|
-5| Latency | It may take time to load CSP-LANG-SERVICE styled templates and initializing <br>  | It may need performance optimization `:innocent:`|
+2| Intelligence | 1. Support for troubleshooting with [Pulumi Co-Piolt](https://www.pulumi.com/product/copilot/) <br> 2. Language and Usecase specific Code generation with [Pulumi AI](https://www.pulumi.com/ai) | USP of Pulumi :bowtie: |
+3| Documentation | 1.Multi language specific modules and examples <br> 2. CSP and Service specific providers and support  | USP of Pulumi :bowtie:  |
+4| Examples | 1. CSP-LANG-SERVICE specific examples exist [Here](https://github.com/pulumi/examples/tree/master) <br> 2. Public Repository of modules and examples | a. Example organization could have been better :neutral_face: <br> b. Not many use cases for all languages are present  :neutral_face: |
+5| Latency | It may take time to load CSP-LANG-SERVICE styled templates and initializing <br>  | It may need performance optimization :innocent:|
 
 ## <a name="useful"></a> Useful Links
 
