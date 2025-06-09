@@ -54,6 +54,7 @@ Following topics are considered during solution building.
 - used _default_ VPC for the network infrastructure to reduce time for _PoC_ preparation. But the second phase of Project Development, we provisioned a custom __VPC__ along with _public_ and _private_ subnets to impart security/protection.
 - provisioned simple and basic test automation for the resources, webpage, and container images 
 - _Makefile_ with handy repeatitive commands to run 
+- _Pulumi Cloud_ is used to maintain IaC state resources 
   
 ## <a name="arch"></a> Architecture
 
@@ -92,8 +93,7 @@ Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/bes
 - **__main.py__** contains main program for VPC setup (__vpc_manager.py__), container app image management (__image_manager.py__), deployment on _EKS_ cluster (__k8s_manager.py__) and exporting _Pulumi_ outputs
 - *Pulumi**._yaml_ holds all configuration files for _Pulumi_ operations
 - _requirements.txt_ contains all the necessary _Python_ and _Pulumi_ modules for operations
-- **app_tester.py** contains basic system testing test cases (checks success criteria)
-- File _test_params.json_ contains testable parameters required for **app_tester.py**
+- Folder __scan_test__ stores _image scan_ and _test_ results. File **app_tester.py** contains basic system testing test cases (checks success criteria) and file **trivy_scan_op2_plapp.html** contains latest trivy scan results for application container image with vulnerabilities
 - _Makefile_ contains shortened commands for running repititive commands 
 - standard _GIT_ configuration files 
 - Folder __resources__ may contain additional files for project such as images, documentations etc.
@@ -133,6 +133,9 @@ Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/bes
 5. run `pulumi up` to preview and deploy changes:
     ```bash
     (venv) $ pulumi up
+    Please choose a stack, or create a new one:  [Use arrows to move, type to filter]
+    > dev
+    Please choose a stack, or create a new one: dev
     Previewing update (dev):
     ...
 

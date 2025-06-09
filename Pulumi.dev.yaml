@@ -5,3 +5,4 @@ config:
   new-k8s:maxClusterSize: "6"
   new-k8s:minClusterSize: "3"
   new-k8s:vpcNetworkCidr: 172.16.0.0/16
+  plapp:config_val: PULUMI_ROCKS!

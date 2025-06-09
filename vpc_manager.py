@@ -1,3 +1,5 @@
+"""This ComponentResource abstracts and simplifies VPC creation"""
+
 from pulumi import  ComponentResource, ResourceOptions
 import pulumi_awsx as awsx
 

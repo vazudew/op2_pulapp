@@ -38,3 +38,10 @@ do-cl:
 	set -ex \
 	&& docker rm op2-plapp --force \
 	&& docker image rm op2-plapp-image
+
+.PHONY: tr-sc
+tr-sc: 
+	set -ex \
+	&& rm -rf html.tpl* \
+	&& wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl \
+	&& trivy image --format template --template "@html.tpl" -o scan_test/trivy_scan_op2_plapp.html 549665574054.dkr.ecr.eu-central-1.amazonaws.com/op2-plapp-0a90438:latest
