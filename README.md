@@ -169,8 +169,8 @@ Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/bes
 8. cleaning up
    ```bash
     (venv) $ pulumi destroy  # tears down entire resource stack
-    (venv) $  pulumi stack rm # Note: deletes all deployment history from the Pulumi console
-    (venv) $  deactivate #python environment gets deactivated
+    (venv) $ pulumi stack rm # Note: deletes all deployment history from the Pulumi console
+    (venv) $ deactivate #python environment gets deactivated
     ```
 
 ## <a name="res"></a> Results

@@ -1,7 +1,5 @@
 config:
   aws:region: eu-central-1
-  exp:vazu: pulumi
-  plapp:config_val: vazu_rocksclear
   new-k8s:desiredClusterSize: "3"
   new-k8s:eksNodeInstanceType: t3.medium
   new-k8s:maxClusterSize: "6"
