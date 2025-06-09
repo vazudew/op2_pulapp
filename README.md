@@ -51,7 +51,7 @@ Following topics are considered during solution building.
   Also *network_policy*, or _namespace_ or *config_map* could have been considered. 
   But they would lead to additional maintenance and efforts
 - AWS Services used are, _VPC_ (networking), _EKS_ (container orchestrator), _IAM_ (Authorization) _ELB_ (Loadbalancer for external HTTP traffic), and _ECR_ (Container Images Repository)
-- used _default_ VPC for the network infrastructure to reduce time for _PoC_ preparation
+- used _default_ VPC for the network infrastructure to reduce time for _PoC_ preparation. But the second phase of Project Development, we provisioned a custom __VPC__ along with _public_ and _private_ subnets to impart security/protection.
 - provisioned simple and basic test automation for the resources, webpage, and container images 
 - _Makefile_ with handy repeatitive commands to run 
   
@@ -82,13 +82,14 @@ Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/bes
 - _Pulumi_ script to build an image from _Dockerfile_ and to push to _ECR_ Repo 
 
 ### <a name="k8s"></a> Setup K8S Cluster <br />
-- _EKS_ Cluster on _default_ VPC with optimal nodes size
+- _EKS_ Cluster on _default_ VPC with optimal nodes size initially. Later we have provisioned a custom __VPC__ with _public_ and _private_ subnets
 - provision _deployment_ k8s object with container image, expose the _deployment_ with _service_ of type _LoadBalancer_, which provisions _ELB_ Loadbalancer
 - use _DNS_ name of _ELB_ connect with web application
+- refered and tweaked code for Pulumi template pulumi aws-py-kubernetes
 
 ### <a name="script"></a> Script File Structure <br />
 - Folder __app__ hosts web application files such as _Dockerfile_ and *create_html.sh* to prepare start page with _hostname_, _environment_ variable and _time_
-- __main.py__ contains main program for container app image management (__image_manager.py__), deployment on _EKS_ cluster (__k8s_manager.py__) and exporting _Pulumi_ outputs
+- **__main.py__** contains main program for VPC setup (__vpc_manager.py__), container app image management (__image_manager.py__), deployment on _EKS_ cluster (__k8s_manager.py__) and exporting _Pulumi_ outputs
 - *Pulumi**._yaml_ holds all configuration files for _Pulumi_ operations
 - _requirements.txt_ contains all the necessary _Python_ and _Pulumi_ modules for operations
 - **app_tester.py** contains basic system testing test cases (checks success criteria)
@@ -173,11 +174,12 @@ Source : [AWS Architecture Reference](https://docs.aws.amazon.com/eks/latest/bes
     ```
 
 ## <a name="res"></a> Results
-1. The Browser displays the web page, and hence the application is _up and running_!
-2. You can also open other Browser instance for the same link, and see the web page is load balanced between container instances. Differentiator is _Hostname_ displayed on Web page.
-3. Also one can see that configured value is displayed on the web page.
+* EKS is provisioned in a custom VPC and application is deployed on the k8s
+* The Browser displays the web page, and hence the application is _up and running_!
+* You can also open other Browser instance for the same link, and see the web page is load balanced between container instances. Differentiator is _Hostname_ displayed on Web page.
+* Also one can see that configured value is displayed on the web page.
 
-![Final Result](./resources/4.result-final.jpg) <br />
+![Final Result](./resources/9.custom_vpc_eks_results.jpg) <br />
 * website is up and active (via loadbalancer DNS)
 * loadbalancing of traffic between instances (hostname)
 * configured value is displayed 
